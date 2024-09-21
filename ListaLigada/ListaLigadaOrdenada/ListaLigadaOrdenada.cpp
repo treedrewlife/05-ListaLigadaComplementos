@@ -70,7 +70,7 @@ void menu()
 
 void inicializar()
 {
-	// se a lista j· possuir elementos
+	// se a lista j√° possuir elementos
 // libera a memoria ocupada
 	NO* aux = primeiro;
 	while (aux != NULL) {
@@ -124,18 +124,43 @@ void inserirElemento()
 	cout << "Digite o elemento: ";
 	cin >> novo->valor;
 	novo->prox = NULL;
+	NO* aux = primeiro;
+
+	while (aux != NULL){
+		while (aux->valor <= novo->valor){
+			if (aux->valor == novo->valor){
+				cout << "Ai mano ja tem um numero que nem esse, Para de meter o cao. \n";
+			 	return;
+			}
+		aux = aux->prox;	
+		}
+		aux = aux->prox;
+	}
+
+	aux = primeiro;
 
 	if (primeiro == NULL)
 	{
 		primeiro = novo;
 	}
+	else if (novo->valor < primeiro->valor)
+	{
+		novo->prox = primeiro;
+		primeiro = novo;	
+	}
+	else if (aux->prox == NULL)
+	{
+		aux->prox = novo;
+	}
 	else
 	{
-		// procura o final da lista
-		NO* aux = primeiro;
 		while (aux->prox != NULL) {
+			while (aux->prox->valor < novo->valor){
+				aux = aux->prox;	
+			}
 			aux = aux->prox;
 		}
+		novo->prox = aux->prox;
 		aux->prox = novo;
 	}
 }
