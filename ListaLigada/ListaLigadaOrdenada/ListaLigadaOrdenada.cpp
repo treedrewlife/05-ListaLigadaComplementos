@@ -154,10 +154,8 @@ void inserirElemento()
 	}
 	else
 	{
-		while (aux->prox != NULL) {
-			while (aux->prox->valor < novo->valor){
-				aux = aux->prox;	
-			}
+		while (aux->prox != NULL || aux->prox->valor < novo->valor) 
+		{
 			aux = aux->prox;
 		}
 		novo->prox = aux->prox;
@@ -167,12 +165,69 @@ void inserirElemento()
 
 void excluirElemento()
 {
+	int elementoApagado;
 
+	cout << "Digite o elemento a ser deletado: ";
+	cin >> elementoApagado;
+
+	NO* aux = primeiro;
+	NO* anterior = NULL;
+
+	if (primeiro == NULL) { // se a lista estiver vazia
+		cout << "Lista vazia \n";
+		return;
+	}
+	else if (primeiro->valor == elementoApagado) { // se for o primeiro elemento 
+		aux = primeiro;
+		primeiro = primeiro->prox;
+		free(aux);
+		cout << "Elemento excluido. \n";
+	}
+	else {
+		while (aux != NULL && elementoApagado > aux->valor) { //procura em ordem
+			anterior = aux;
+			aux = aux->prox;
+		}
+
+		if (aux == NULL) {
+			cout << "Elemento nao encontrado \n";
+		}
+
+		anterior->prox = aux->prox;
+		free(aux);
+		cout << "Elemento excluido. \n" << endl;
+	}
 }
 
 void buscarElemento()
 {
+	int elementoBuscado;
 
+	cout << "Digite um elemento para ser buscado: ";
+	cin >> elementoBuscado;
+
+	NO* aux = primeiro;
+	NO* anterior = NULL;
+
+	if (primeiro == NULL) { // se a lista estiver vazia
+		cout << "Lista vazia \n";
+		return;
+	}
+	else if (primeiro->valor == elementoBuscado) { // se for o primeiro elemento 
+		cout << "Elemento " << primeiro->valor << " encontrado. \n";
+	}
+	else {
+		while (aux != NULL && elementoBuscado != aux->valor) { //procura em ordem
+			aux = aux->prox;
+		}
+
+		if (aux == NULL) {
+			cout << "Elemento nao encontrado \n";
+		}
+		else {
+			cout << "Elemento " << aux->valor << " encontrado. \n";
+		}
+	}
 }
 
 
